@@ -3,6 +3,6 @@
 
 #include "arvore.h"
 
-void lerArquivoGeo(char *bed, char *nomeArq, Arvore arvoreFormas);
+Arvore lerArquivoGeo(char *bed, char *nomeArq, Arvore arvoreFormas);
 
 #endif
