@@ -5,6 +5,7 @@
 #include "forma.h"
 #include "svg.h"
 
+static void gerarSnapshot(void** vetor, int tamanhoTotal, char* pathSaida, char* nomeGeo, char* nomeQry, int* numFrame);
 
 static void trocar(void** a, void** b) {
     void* temp = *a;

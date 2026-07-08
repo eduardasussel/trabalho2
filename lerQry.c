@@ -37,8 +37,8 @@ void lerArquivoQry(char *bed, char *nomeArq, char *pathSaida, char *nomeGeoOrig,
     extraiNomePuroQry(nomeQryPuro, nomeArq);
     extraiNomePuroQry(nomeGeoPuro, nomeGeoOrig);
 
-    char caminhoSVG[512];
-    char caminhoTXT[512];
+    char caminhoSVG[1024];
+    char caminhoTXT[1024];
 
     sprintf(caminhoSVG, "%s/%s-%s.svg", pathSaida, nomeGeoPuro, nomeQryPuro);
     sprintf(caminhoTXT, "%s/%s-%s.txt", pathSaida, nomeGeoPuro, nomeQryPuro);
@@ -47,8 +47,6 @@ void lerArquivoQry(char *bed, char *nomeArq, char *pathSaida, char *nomeGeoOrig,
     FILE *txt = fopen(caminhoTXT, "w");
     
     char comando[10];
-    double x, y, w, h, dx, dy;
-    char corb[30], corp[30];
 
     Arvore arvoreFormasAux = criaArvore();
 
