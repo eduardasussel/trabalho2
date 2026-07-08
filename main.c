@@ -117,15 +117,24 @@ int main(int argc, char *argv[]) {
         FILE *fQry = fopen(caminhoQryCompleto, "r");
         if (fQry && fTxt && fSvg) {
             char cmdQry[10];
-        
+
             Arvore arvoreFormasAux = criaArvore(); 
 
             while (fscanf(fQry, "%s", cmdQry) != EOF) {
-                if (strcmp(cmdQry, "find") == 0) {
+                if (strcmp(cmdQry, "sel") == 0) {
+                    double x, y, w, h;
+                    fscanf(fQry, "%lf %lf %lf %lf", &x, &y, &w, &h);
+                    realizaSel(x, y, w, h, arvoreFormasAux, bancoDeDados, fTxt);
+
+                } else if (strcmp(cmdQry, "find") == 0) {
                     int k; char alg[5], crit[5]; double x, y, dw;
                     fscanf(fQry, "%d %s %s %lf %lf %lf", &k, alg, crit, &x, &y, &dw);
+            
+                    realizaFind(k, alg, crit, x, y, dw, arvoreFormasAux, bsd, nomeGeoPuro, nomeQryPuro, fTxt, fSvg);
                     
-                    realizaFind(k, alg, crit, x, y, dw, bancoDeDados, bsd, nomeGeoPuro, nomeQryPuro, fTxt, fSvg);
+                } else if (strcmp(cmdQry, "mc") == 0) {
+                    char corb[50], corp[50];
+                    fscanf(fQry, "%s %s", corb, corp);
                     
                 } else if (strcmp(cmdQry, "cm") == 0) {
                     double x, y, w, h, dx, dy;
@@ -138,6 +147,7 @@ int main(int argc, char *argv[]) {
                     realizaFindRm(k, alg, crit, x, y, dw, bancoDeDados, arvoreFormasAux, bsd, nomeGeoPuro, nomeQryPuro, fTxt, fSvg);
                 }
             }
+            
             fclose(fQry);
             fclose(fTxt);
             finalizaSVG(fSvg);

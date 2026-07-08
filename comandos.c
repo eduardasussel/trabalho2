@@ -17,12 +17,12 @@ void inicializaComandos() {
     arvoreFormas = criaArvore();
 }
 
-void realizaSel(double x, double y, double w, double h, Arvore arvoreFormas, Arvore raiz, FILE *txt) { 
-    destroiArvoreApenasNos(arvoreFormas);
-    desmarcarTodasAsFiguras(raiz);
-    filtrarFigurasNaRegiao(raiz, x, y, w, h, arvoreFormas, txt);
+void realizaSel(double x, double y, double w, double h, Arvore arvoreAuxiliar, Arvore bancoDeDados, FILE *txt) { 
+    destroiArvoreApenasNos(arvoreAuxiliar);
+    desmarcarTodasAsFiguras(bancoDeDados);
+    filtrarFigurasNaRegiao(bancoDeDados, x, y, w, h, arvoreAuxiliar, txt);
     fprintf(txt, "\n");
-    printf("Seleção concluída. %d figuras selecionadas.\n", contagemItens(arvoreFormas));
+    printf("Seleção concluída. %d figuras selecionadas.\n", contagemItens(arvoreAuxiliar));
 }
 
 void realizaFind(int k, char* alg, char* crit, double x, double y, double dw, Arvore arvoreFormas, char* pathSaida, char* nomeGeo, char* nomeQry, FILE *txt, FILE *svg) {
