@@ -11,9 +11,11 @@
 void extraiNomePuro(char *resultado, const char *origem) {
     const char *ultimoBarra = strrchr(origem, '/');
     if (!ultimoBarra) ultimoBarra = strrchr(origem, '\\');
+    
     const char *base = ultimoBarra ? ultimoBarra + 1 : origem;
     
     strcpy(resultado, base);
+    
     char *ponto = strrchr(resultado, '.');
     if (ponto) *ponto = '\0';
 }
