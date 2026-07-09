@@ -7,6 +7,7 @@
 #include "forma.h"
 #include "comandos.h"
 #include "svg.h"
+#include "lerGeo.h"
 
 void extraiNomePuro(char *resultado, const char *origem) {
     const char *ultimoBarra = strrchr(origem, '/');
