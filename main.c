@@ -61,8 +61,6 @@ int main(int argc, char *argv[]) {
 
     arvoreFormas = lerArquivoGeo(bed, arqGeo,arvoreFormas);
 
-    printf("[DEBUG MAIN] Banco de dados carregado com sucesso. Total de itens: %d\n", contagemItens(arvoreFormas));
-
     char svgGeoSaida[1024];
     sprintf(svgGeoSaida, "%s/%s.svg", bsd, nomeGeoPuro);
     FILE *svgPrincipal = iniciaSVG(svgGeoSaida);
@@ -96,7 +94,7 @@ int main(int argc, char *argv[]) {
 
         FILE *fTxt = fopen(caminhoTxtSaida, "w");
         FILE *fSvg = iniciaSVG(caminhoSvgSaida);
-        
+
         if (fSvg) {
             int tamGeo = contagemItens(arvoreFormas); 
             if (tamGeo > 0) {
@@ -119,7 +117,7 @@ int main(int argc, char *argv[]) {
                 if (strcmp(cmdQry, "sel") == 0) {
                     double x, y, w, h;
                     fscanf(fQry, "%lf %lf %lf %lf", &x, &y, &w, &h);
-                    realizaSel(x, y, w, h, arvoreFormasAux, arvoreFormas, fTxt);
+                    realizaSel(x, y, w, h, &arvoreFormasAux, arvoreFormas, fTxt);
 
                 } else if (strcmp(cmdQry, "find") == 0) {
                     int k; char alg[5], crit[5]; double x, y, dw;
@@ -141,6 +139,8 @@ int main(int argc, char *argv[]) {
                     fscanf(fQry, "%d %s %s %lf %lf %lf", &k, alg, crit, &x, &y, &dw);
                     realizaFindRm(k, alg, crit, x, y, dw, arvoreFormas, arvoreFormasAux, bsd, nomeGeoPuro, nomeQryPuro, fTxt, fSvg);
                 }
+
+                fflush(stdout);
             }
             
             fclose(fQry);
