@@ -52,6 +52,11 @@ Arvore lerArquivoGeo(char *bed, char *nomeArq, Arvore arvoreFormas) {
 
             arvoreFormas = inserirNaArvore(arvoreFormas, f);
         }
+
+        else if (strcmp(comando, "ts") == 0) {
+            char fFamily[50], fWeight[50], fSize[50];
+            fscanf(arq, "%s %s %s", fFamily, fWeight, fSize);
+        }
     }
 
     printf("Leitura GEO concluida. %d figuras carregadas.\n", contagemItens(arvoreFormas));

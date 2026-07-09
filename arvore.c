@@ -89,9 +89,7 @@ static void filtrarFigurasNaRegiaoRecursiva(No* raiz, double x, double y, double
 
 void filtrarFigurasNaRegiao(Arvore raiz, double x, double y, double w, double h, Arvore arvoreFormas, FILE *txt) {
     No* raiz_real = (No*) raiz; 
-
-    Arvore temp = arvoreFormas;
-    filtrarFigurasNaRegiaoRecursiva(raiz_real, x, y, w, h, &temp, txt);
+    filtrarFigurasNaRegiaoRecursiva(raiz_real, x, y, w, h, arvoreFormas, txt);
 }
 
 static void buscarFigurasNaRegiaoArvoreRecursiva(No* raiz, double x, double y, double w, double h, Lista listaDestino) {

@@ -45,7 +45,7 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    Arvore bancoDeDados = criaArvore(); 
+    Arvore arvoreFormas = criaArvore(); 
     inicializaComandos();
 
     char caminhoGeoCompleto[1024] = "";
@@ -58,36 +58,18 @@ int main(int argc, char *argv[]) {
     char nomeGeoPuro[256];
     extraiNomePuro(nomeGeoPuro, arqGeo);
 
-    FILE *fGeo = fopen(caminhoGeoCompleto, "r");
-    if (!fGeo) {
-        fprintf(stderr, "Erro ao abrir o arquivo .geo em: %s\n", caminhoGeoCompleto);
-        return 1;
-    }
+    arvoreFormas = lerArquivoGeo(bed, arqGeo,arvoreFormas);
 
-    char comando[10];
-    while (fscanf(fGeo, "%s", comando) != EOF) {
-        if (strcmp(comando, "c") == 0) {
-            int id; double x, y, r; char corb[50], corp[50];
-            fscanf(fGeo, "%d %lf %lf %lf %s %s", &id, &x, &y, &r, corb, corp);
-            Figura c = criaCirculoStruct(id, x, y, r, corb, corp);
-            inserirNaArvore(bancoDeDados, c);
-        } else if (strcmp(comando, "r") == 0) {
-            int id; double x, y, w, h; char corb[50], corp[50];
-            fscanf(fGeo, "%d %lf %lf %lf %lf %s %s", &id, &x, &y, &w, &h, corb, corp);
-            Figura r = criaRetanguloStruct(id, x, y, w, h, corb, corp);
-            inserirNaArvore(bancoDeDados, r);
-        }
-    }
-    fclose(fGeo);
+    printf("[DEBUG MAIN] Banco de dados carregado com sucesso. Total de itens: %d\n", contagemItens(arvoreFormas));
 
     char svgGeoSaida[1024];
     sprintf(svgGeoSaida, "%s/%s.svg", bsd, nomeGeoPuro);
     FILE *svgPrincipal = iniciaSVG(svgGeoSaida);
     if (svgPrincipal) {
-        int tamGeo = contagemItens(bancoDeDados);
+        int tamGeo = contagemItens(arvoreFormas);
         if (tamGeo > 0) {
             void** vetGeo = malloc(tamGeo * sizeof(void*));
-            descarregaArvoreNoVetor(bancoDeDados, vetGeo);
+            descarregaArvoreNoVetor(arvoreFormas, vetGeo);
             for (int i = 0; i < tamGeo; i++) {
                 desenhaFiguraSVG(svgPrincipal, vetGeo[i]);
             }
@@ -124,7 +106,7 @@ int main(int argc, char *argv[]) {
                 if (strcmp(cmdQry, "sel") == 0) {
                     double x, y, w, h;
                     fscanf(fQry, "%lf %lf %lf %lf", &x, &y, &w, &h);
-                    realizaSel(x, y, w, h, arvoreFormasAux, bancoDeDados, fTxt);
+                    realizaSel(x, y, w, h, arvoreFormasAux, arvoreFormas, fTxt);
 
                 } else if (strcmp(cmdQry, "find") == 0) {
                     int k; char alg[5], crit[5]; double x, y, dw;
@@ -139,12 +121,12 @@ int main(int argc, char *argv[]) {
                 } else if (strcmp(cmdQry, "cm") == 0) {
                     double x, y, w, h, dx, dy;
                     fscanf(fQry, "%lf %lf %lf %lf %lf %lf", &x, &y, &w, &h, &dx, &dy);
-                    realizaCm(x, y, w, h, dx, dy, bancoDeDados, arvoreFormasAux, fTxt);
+                    realizaCm(x, y, w, h, dx, dy, arvoreFormas, arvoreFormasAux, fTxt);
                     
                 } else if (strcmp(cmdQry, "findrm") == 0) {
                     int k; char alg[5], crit[5]; double x, y, dw;
                     fscanf(fQry, "%d %s %s %lf %lf %lf", &k, alg, crit, &x, &y, &dw);
-                    realizaFindRm(k, alg, crit, x, y, dw, bancoDeDados, arvoreFormasAux, bsd, nomeGeoPuro, nomeQryPuro, fTxt, fSvg);
+                    realizaFindRm(k, alg, crit, x, y, dw, arvoreFormas, arvoreFormasAux, bsd, nomeGeoPuro, nomeQryPuro, fTxt, fSvg);
                 }
             }
             

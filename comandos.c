@@ -20,12 +20,15 @@ void inicializaComandos() {
 void realizaSel(double x, double y, double w, double h, Arvore arvoreAuxiliar, Arvore bancoDeDados, FILE *txt) { 
     destroiArvoreApenasNos(arvoreAuxiliar);
     desmarcarTodasAsFiguras(bancoDeDados);
+    
     filtrarFigurasNaRegiao(bancoDeDados, x, y, w, h, arvoreAuxiliar, txt);
+    
     fprintf(txt, "\n");
     printf("Seleção concluída. %d figuras selecionadas.\n", contagemItens(arvoreAuxiliar));
 }
 
 void realizaFind(int k, char* alg, char* crit, double x, double y, double dw, Arvore arvoreFormas, char* pathSaida, char* nomeGeo, char* nomeQry, FILE *txt, FILE *svg) {
+    printf("[DEBUG FIND] Quantidade de figuras recebidas para ordenar: %d\n", contagemItens(arvoreFormas));
     int tamanho = contagemItens(arvoreFormas);
     if (tamanho == 0) return;
 
