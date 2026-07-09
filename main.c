@@ -96,6 +96,18 @@ int main(int argc, char *argv[]) {
 
         FILE *fTxt = fopen(caminhoTxtSaida, "w");
         FILE *fSvg = iniciaSVG(caminhoSvgSaida);
+        
+        if (fSvg) {
+            int tamGeo = contagemItens(arvoreFormas); 
+            if (tamGeo > 0) {
+                void** vetGeo = malloc(tamGeo * sizeof(void*));
+                descarregaArvoreNoVetor(arvoreFormas, vetGeo);
+                for (int i = 0; i < tamGeo; i++) {
+                    desenhaFiguraSVG(fSvg, vetGeo[i]);
+                }
+                free(vetGeo);
+            }
+        }
 
         FILE *fQry = fopen(caminhoQryCompleto, "r");
         if (fQry && fTxt && fSvg) {
