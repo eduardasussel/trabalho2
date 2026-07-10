@@ -1,20 +1,16 @@
 #ifndef ORDENA_H
 #define ORDENA_H
 
-void ordenaVetor(void** vetor, int tamanho, char* alg, char* crit, char* pathSaida, char* nomeGeo, char* nomeQry);
+#include <stdio.h>
+#include "arvore.h"
 
-void selectionSort(void** vetor, int n, char* crit, char* pathSaida, char* nomeGeo, char* nomeQry, int* numFrame);
+void ordenaVetor(void** vetor, int tamanho, int k, char* alg, char* crit, char* pathSaida, char* nomeGeo, char* nomeQry);
 
-void bubbleSort(void** vetor, int n, char* crit, char* pathSaida, char* nomeGeo, char* nomeQry, int* numFrame);
-
-void insertionSort(void** vetor, int n, char* crit, char* pathSaida, char* nomeGeo, char* nomeQry, int* numFrame);
-
-void shellSort(void** vetor, int n, char* crit, char* pathSaida, char* nomeGeo, char* nomeQry, int* numFrame);
-
+void selectionSort(void** vetor, int n, int k, char* crit, char* pathSaida, char* nomeGeo, char* nomeQry, int* numFrame);
+void bubbleSort(void** vetor, int n, int k, char* crit, char* pathSaida, char* nomeGeo, char* nomeQry, int* numFrame);
+void insertionSort(void** vetor, int n, int k, char* crit, char* pathSaida, char* nomeGeo, char* nomeQry, int* numFrame);
+void shellSort(void** vetor, int n, int k, char* crit, char* pathSaida, char* nomeGeo, char* nomeQry, int* numFrame);
 void quickSort(void** vetor, int baixo, int alto, int tamanhoTotal, char* crit, char* pathSaida, char* nomeGeo, char* nomeQry, int* numFrame);
-
 void mergeSort(void** vetor, int l, int r, int tamanhoTotal, char* crit, char* pathSaida, char* nomeGeo, char* nomeQry, int* numFrame);
-
-void ordenaVetor(void** vetor, int tamanho, char* alg, char* crit, char* pathSaida, char* nomeGeo, char* nomeQry);
 
 #endif

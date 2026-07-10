@@ -13,12 +13,10 @@ Arvore removeDaArvore(Arvore raiz, Figura figura);
 
 int contagemItens(Arvore raiz);
 void descarregaArvoreNoVetor(Arvore raiz, void** vetor);
-
 void desmarcarTodasAsFiguras(Arvore raiz);
-void filtrarFigurasNaRegiao(Arvore raiz, double x, double y, double w, double h, Arvore arvoreFormas, FILE *txt);
+void filtrarFigurasNaRegiao(Arvore raiz, double x, double y, double w, double h, Arvore* arvoreFormas, FILE *txt);
 void buscarFigurasNaRegiaoArvore(Arvore raiz, double x, double y, double w, double h, Lista listaDestino);
 void alterarCoresArvore(Arvore arvore, char* corb, char* corp);
-
 void destroiArvoreApenasNos(Arvore raiz);
 void liberaArvore(Arvore raiz);
 

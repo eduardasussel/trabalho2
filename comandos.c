@@ -34,22 +34,23 @@ void realizaFind(int k, char* alg, char* crit, double x, double y, double dw, Ar
     void** vetor = malloc(tamanho * sizeof(void*));
     descarregaArvoreNoVetor(arvoreFormas, vetor);
 
-    ordenaVetor(vetor, tamanho, alg, crit, pathSaida, nomeGeo, nomeQry);
+    ordenaVetor(vetor, tamanho, k, alg, crit, pathSaida, nomeGeo, nomeQry);
 
+    fprintf(txt, "=== COMANDO FIND: %d PRIMEIROS ORDENADOS ===\n", k);
+    
     double posX = x;
-    for (int i = 0; i < tamanho; i++) {
+    int limite = (k < tamanho) ? k : tamanho;
+    
+    for (int i = 0; i < limite; i++) {
         void* figura = vetor[i];
         
         setAncoraFigura(figura, posX, y);
-
-        fprintf(txt, "ID: %d, Tipo: %c\n", getFormaId(figura), getFormaTipo(figura));
-
-        if (i < k) {
-            desenhaRetanguloSel(svg, posX, y, 4, 4); 
-        }
+        fprintf(txt, "Rank %d -> ID: %d, Tipo: %c\n", i + 1, getFormaId(figura), getFormaTipo(figura));
+        desenhaRetanguloSel(svg, posX, y, 4, 4); 
 
         posX += dw; 
     }
+    fprintf(txt, "============================================\n\n");
 
     free(vetor);
 }
@@ -91,7 +92,9 @@ void realizaFindRm(int k, char* alg, char* crit, double x, double y, double dw, 
     void** vetor = malloc(tamanho * sizeof(void*));
     descarregaArvoreNoVetor(arvoreFormas, vetor);
     
-    ordenaVetor(vetor, tamanho, alg, crit, pathSaida, nomeGeo, nomeQry);
+    ordenaVetor(vetor, tamanho, k, alg, crit, pathSaida, nomeGeo, nomeQry);
+
+    fprintf(txt, "=== COMANDO FINDRM: MANUTENÇÃO DOS %d PRIMEIROS ===\n", k);
 
     double posX = x;
     for (int i = 0; i < tamanho; i++) {
@@ -99,17 +102,16 @@ void realizaFindRm(int k, char* alg, char* crit, double x, double y, double dw, 
 
         if (i < k) {
             setAncoraFigura(figura, posX, y);
-            fprintf(txt, "Mantido - ID: %d, Tipo: %c\n", getFormaId(figura), getFormaTipo(figura));
+            fprintf(txt, "Mantido [Rank %d] - ID: %d, Tipo: %c\n", i + 1, getFormaId(figura), getFormaTipo(figura));
             desenhaRetanguloSel(svg, posX, y, 4, 4);
             posX += dw;
         } else {
-            fprintf(txt, "REMOVIDO (Rank > %d) - ID: %d, Tipo: %c\n", k, getFormaId(figura), getFormaTipo(figura));
-            
+            fprintf(txt, "REMOVIDO (Rank %d > %d) - ID: %d, Tipo: %c\n", i + 1, k, getFormaId(figura), getFormaTipo(figura));
             removeDaArvore(bancoDeDados, figura);
-            
             liberaFigura(figura); 
         }
     }
+    fprintf(txt, "===================================================\n\n");
 
     destroiArvoreApenasNos(arvoreFormas);
     for (int i = 0; i < k && i < tamanho; i++) {
